@@ -5,16 +5,68 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Flip Wits</title>
 <meta name="description" content="A family party game for the phone on your forehead.">
-<link rel="stylesheet" href="/style.css">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="favicon.svg?v=2" type="image/svg+xml">
+<link rel="stylesheet" href="style.css?v=2">
 </head>
 <body>
-<nav><a href="/">Flip Wits</a><a href="/support/">Support</a><a href="/privacy/">Privacy</a></nav>
-<main>
-<h1>Flip Wits</h1>
-<p class="lede">A family party game for the phone on your forehead.</p>
-<p>Hold the phone to your forehead with the screen facing your team. They shout clues, you say the answer, and you flip the phone to score. Play with numbers, words and more, with students and grown-ups on the same team.</p>
-<p>Flip Wits is in testing and not yet on the App Store.</p>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <a class="brand" href="https://hearthandwit.com/">Hearth &amp; Wit</a>
+  <nav aria-label="Flip Wits">
+    <a href="./" aria-current="page">Flip Wits</a>
+    <a href="support/">Support</a>
+    <a href="privacy/">Privacy</a>
+  </nav>
+</header>
+
+<!-- The same faint line drawing as the main site. Decorative, so hidden from screen readers. -->
+<div class="backdrop" aria-hidden="true"><svg viewBox="0 0 720 720" fill="none" stroke="currentColor" stroke-width="1.5">
+  <circle cx="360" cy="360" r="340"/><circle cx="360" cy="360" r="280"/><circle cx="360" cy="360" r="220"/><circle cx="360" cy="360" r="160"/><circle cx="360" cy="360" r="100"/>
+  <path d="M360 300c30 40 60 60 60 110a60 60 0 0 1-120 0c0-25 10-45 30-60 0 25 8 35 18 45 10-20 12-55 12-95z"/>
+</svg></div>
+<main id="main">
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/><path d="M3 9a9 9 0 0 1 2-4M21 15a9 9 0 0 1-2 4"/></svg>
+    </div>
+    <div class="intro">
+      <h1 id="hero-title">Flip Wits</h1>
+      <p class="tagline">A family party game for the phone on your forehead.</p>
+      <p>Hold the phone to your forehead with the screen facing your team. They shout clues, you say the answer, and you flip the phone to score. Play with numbers, words and more, with students and grown-ups on the same team.</p>
+      <p class="status">Flip Wits is in testing and not yet on the App Store.</p>
+      <p class="cta"><a class="button" href="mailto:ajm@hearthandwit.com"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Email ajm@hearthandwit.com</a></p>
+    </div>
+  </section>
+
+  <section class="apps" aria-labelledby="play-title">
+    <h2 id="play-title">How to play</h2>
+    <p class="sub">One phone, one holder, and a team shouting clues.</p>
+    <ul class="cards">
+      <li class="card">
+        <svg class="icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/><path d="M3 9a9 9 0 0 1 2-4M21 15a9 9 0 0 1-2 4"/></svg>
+        <h3>Hold it up</h3>
+        <p>One player holds the phone sideways against their forehead, with the screen facing the team.</p>
+      </li>
+      <li class="card">
+        <svg class="icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
+        <h3>Flip up for Got it</h3>
+        <p>The team gives clues and the holder says the answer. Tip the screen to the ceiling to score.</p>
+      </li>
+      <li class="card">
+        <svg class="icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+        <h3>Flip down to Pass</h3>
+        <p>Tip the screen to the floor to skip. When time runs out, the team reviews the turn and the phone moves on.</p>
+      </li>
+    </ul>
+  </section>
 </main>
-<footer>Flip Wits is made by Hearth &amp; Wit. <a href="mailto:ajm@hearthandwit.com">ajm@hearthandwit.com</a></footer>
+
+<footer>
+  <div class="inner">
+    <span><a href="https://hearthandwit.com/">Hearth &amp; Wit</a></span>
+    <a href="mailto:ajm@hearthandwit.com">ajm@hearthandwit.com</a>
+  </div>
+</footer>
 </body>
 </html>
