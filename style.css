@@ -1,91 +1,218 @@
-/* One small stylesheet with no outside requests, so the pages load fast and tell no third party about a visit.
-   Everything down to the Flip Wits section is copied from hearthandwit-site/style.css so the two sites match.
-   When that file changes, copy the change here and bump the ?v= tag on the links in all three pages. */
-:root { color-scheme: light; --bg: #ffffff; --ink: #111827; --body: #1f2937; --muted: #475569; --accent: #1e3a5f; --accent-dark: #0f2742; --rule: #e5e7eb; --tint: #f1f5f9; --band: #f3f4f6; }
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .card { transition: none; } }
-body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.7 Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; position: relative; }
-a { color: var(--accent); }
-a:hover { color: var(--accent-dark); }
-/* One visible focus ring for keyboard users, on every link. */
-a:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
-/* The skip link sits off screen until a keyboard user tabs to it. */
-.skip { position: absolute; left: 16px; top: -48px; background: var(--accent); color: #fff; padding: 8px 12px; border-radius: 6px; z-index: 3; text-decoration: none; }
-.skip:focus { top: 12px; }
-h1, h2, h3 { line-height: 1.2; margin: 0; }
-p { margin: 0 0 14px; }
+/* The Flip Wits site: one small stylesheet with no outside requests, so the pages load fast and tell no third party about a visit.
+   The look follows the iOS app itself, not the Hearth & Wit company site. Every color below is a value from the app's design
+   tokens (design/tokens.json in the math-phone-app repo); README.md lists where each one comes from and its contrast.
+   When this file changes, bump the ?v= tag on its links in all three pages. */
 
-/* The top bar: wordmark left, section links right, wrapping on a phone. */
-.top { position: sticky; top: 0; z-index: 2; background: rgba(255, 255, 255, .96); border-bottom: 1px solid var(--rule); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 32px; padding: 10px 40px; }
-.brand { font-size: 15px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); text-decoration: none; padding: 10px 0; }
-nav { display: flex; flex-wrap: wrap; gap: 4px 28px; }
-nav a { color: #334155; text-decoration: none; font-size: 15px; font-weight: 500; padding: 10px 0; border-bottom: 2px solid transparent; }
-nav a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+/* Nunito is the rounded face the app's design canvases use in place of SF Pro Rounded. Only the latin subset and only
+   the three weights in use are served from this site's own fonts folder (OFL, see fonts/OFL.txt): 700 for buttons and
+   small headings, 800 for headings and the wordmark, 900 for the big number on the turn screen, as the app sets numbers heavy.
+   font-display: swap shows the text at once in the fallback face while a file loads. */
+@font-face { font-family: "Nunito"; src: url("fonts/nunito-700-latin.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "Nunito"; src: url("fonts/nunito-800-latin.woff2") format("woff2"); font-weight: 800; font-style: normal; font-display: swap; }
+@font-face { font-family: "Nunito"; src: url("fonts/nunito-900-latin.woff2") format("woff2"); font-weight: 900; font-style: normal; font-display: swap; }
 
-/* The faint line drawing sits behind the hero, off the right edge. The wrapper clips it so the page never grows wider than the window. */
-.backdrop { position: absolute; right: 0; top: 120px; width: 600px; height: 720px; overflow: hidden; color: var(--accent); opacity: .07; pointer-events: none; z-index: 0; }
-.backdrop svg { position: absolute; right: -120px; top: 0; width: 720px; height: 720px; }
-
-main { position: relative; z-index: 1; width: 100%; max-width: 1040px; margin: 0 auto; padding: 0 40px; }
-
-/* The hero: the mark beside the introduction, stacking on a phone. */
-.hero { display: flex; align-items: center; gap: 64px; padding: 96px 0 72px; }
-.mark { flex: 0 0 auto; width: 200px; height: 200px; border-radius: 50%; background: var(--tint); border: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: center; color: var(--accent); }
-.mark svg { width: 112px; height: 112px; }
-.intro { min-width: 0; }
-h1 { font-size: 40px; font-weight: 700; color: var(--accent); margin-bottom: 12px; }
-.tagline { color: var(--muted); margin-bottom: 20px; }
-.intro p { color: var(--body); }
-.cta { margin-top: 24px; }
-/* The outlined button, in the style of the reference site's Download CV button, filled on hover. */
-.button { display: inline-flex; align-items: center; gap: 10px; border: 1.5px solid var(--accent); color: var(--accent); border-radius: 6px; padding: 12px 20px; font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; text-decoration: none; min-height: 44px; }
-.button svg { width: 16px; height: 16px; }
-.button:hover { background: var(--accent); color: #fff; }
-
-/* The cards: three across on a desktop, one column on a phone. */
-.apps { padding: 24px 0 48px; }
-h2 { font-size: 26px; font-weight: 700; margin-bottom: 8px; }
-.sub { color: var(--muted); font-size: 16px; margin-bottom: 28px; }
-.cards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
-.card { background: var(--bg); border: 1px solid var(--rule); border-radius: 10px; padding: 28px; display: flex; flex-direction: column; gap: 12px; transition: box-shadow .15s ease; }
-.card:hover { box-shadow: 0 6px 24px rgba(15, 23, 42, .08); }
-.icon { width: 28px; height: 28px; color: var(--accent); }
-h3 { font-size: 19px; font-weight: 600; margin-top: 4px; }
-.card p { margin: 0; font-size: 15px; line-height: 1.65; color: #374151; }
-.card > p:first-of-type { flex: 1 0 auto; }
-.open { text-decoration: none; font-weight: 600; font-size: 15px; display: inline-flex; align-items: center; gap: 6px; padding: 8px 0; min-height: 44px; }
-.open svg { width: 16px; height: 16px; }
-.open:hover { text-decoration: underline; }
-.more { display: flex; flex-wrap: wrap; gap: 0 16px; border-top: 1px solid var(--tint); padding-top: 8px; }
-.more a { color: var(--muted); font-size: 14px; text-decoration: none; padding: 8px 0; display: inline-block; }
-.more a:hover { color: var(--accent); text-decoration: underline; }
-
-.support { padding: 24px 0 80px; max-width: 640px; }
-.support p { color: var(--body); }
-
-footer { position: relative; z-index: 1; background: var(--band); border-top: 1px solid var(--rule); padding: 28px 40px; }
-footer .inner { max-width: 1040px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 24px; font-size: 14px; color: var(--muted); }
-footer a { color: var(--muted); padding: 6px 0; }
-
-@media (max-width: 760px) {
-  .top, footer { padding-left: 16px; padding-right: 16px; }
-  main { padding: 0 16px; }
-  .hero { flex-direction: column; align-items: flex-start; gap: 32px; padding: 56px 0 40px; }
-  h1 { font-size: 34px; }
-  .cards { grid-template-columns: repeat(1, minmax(0, 1fr)); }
-  .backdrop { width: 280px; height: 480px; top: 60px; }
-  .backdrop svg { width: 480px; height: 480px; right: -200px; }
+/* The palette, named as in the app. The game ground and its white text are the turn, countdown and flash screens; the grouped
+   grey and white surfaces are the app's menus. Got it and Pass each come in a light-ground and a dark-ground value, and are
+   never shown by color alone: each always sits with its glyph and its word. --soft and --muted are the two text greys,
+   chosen dark (or light) enough to pass 4.5:1 on every ground they sit on. */
+:root {
+  color-scheme: light;
+  --ground: #0B0B0F; --on-ground: #FFFFFF; --soft: #D1D1D6; --raised: #1C1C1E; --edge: #2C2C2E;
+  --grouped: #F2F2F7; --surface: #FFFFFF; --label: #0B0B0F; --body: #1C1C1E; --muted: #545458; --rule: #E5E5EA;
+  --violet: #6C4CF1; --violet-deep: #4A2FD0; --violet-dark: #8B74FF;
+  --got: #009E73; --got-dark: #1FB889; --pass: #D55E00; --pass-dark: #F07A1A; --warn: #E69F00; --warn-dark: #F2B134;
+  --round: Nunito, ui-rounded, "SF Pro Rounded", system-ui, sans-serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --focus: var(--violet);
 }
 
-/* Flip Wits additions: the text pages use the home page's reading width and heading sizes. */
-.page { max-width: 640px; padding: 72px 0 80px; }
-.page h1 { margin-bottom: 8px; }
-.page h2 { font-size: 22px; margin: 36px 0 8px; }
-.page h3 { font-size: 17px; margin: 24px 0 4px; }
+/* The page ground is the menus' grouped grey, so the long support and privacy text reads as dark on light. The body face is the
+   system sans, as the app's menus use the system labels; the rounded face is kept for headings, buttons and numbers. */
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--grouped); color: var(--body); font: 17px/1.7 var(--sans); position: relative; -webkit-text-size-adjust: 100%; }
+h1, h2, h3 { font-family: var(--round); font-weight: 800; color: var(--label); line-height: 1.15; margin: 0; }
+p { margin: 0 0 14px; }
+a { color: var(--violet); text-underline-offset: 3px; }
+a:hover { color: var(--violet-deep); }
+
+/* One visible focus ring for keyboard users on every link. It is violet on the light grounds and white on the dark ones
+   (the dark blocks set --focus), so it always stands well clear of what is behind it. */
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; border-radius: 6px; }
+.top, .hero, footer { --focus: var(--on-ground); }
+
+/* The skip link sits off screen until a keyboard user tabs to it, then drops in over the top bar. */
+.skip { position: absolute; left: 16px; top: -64px; z-index: 3; background: var(--violet-deep); color: #fff; font-family: var(--round); font-weight: 800; padding: 12px 20px; border-radius: 999px; text-decoration: none; }
+.skip:focus { top: 12px; }
+.skip:hover { color: #fff; }
+
+/* The blocks share one centered column, so the dark hero band and the light sections can each run edge to edge. */
+.wrap { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 40px; }
+
+/* The top bar is a strip of the game ground: the 42 mark and the Flip Wits wordmark on the left, with a small "by Hearth & Wit"
+   link home to the company, and the page links on the right. Every link is held 44px tall so it is easy to tap. */
+.top { position: sticky; top: 0; z-index: 2; background: var(--ground); color: var(--on-ground); border-bottom: 1px solid var(--edge); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0 32px; padding: 6px 40px; }
+.brand { display: flex; align-items: center; flex-wrap: wrap; gap: 0 12px; margin: 0; }
+.brand-mark { width: 36px; height: 36px; flex: 0 0 auto; display: block; }
+.wordmark { font-family: var(--round); font-weight: 900; letter-spacing: -.01em; }
+.brand .wordmark { font-size: 22px; line-height: 1; }
+.by { display: inline-flex; align-items: center; min-height: 44px; color: var(--soft); font-size: 14px; }
+.by:hover { color: var(--on-ground); }
+nav { display: flex; flex-wrap: wrap; gap: 0 28px; }
+nav a { display: inline-flex; align-items: center; min-height: 44px; color: var(--on-ground); text-decoration: none; font-family: var(--round); font-weight: 700; font-size: 16px; border-bottom: 3px solid transparent; }
+nav a:hover { color: var(--on-ground); border-bottom-color: var(--soft); }
+/* The page you are on is marked the way the app marks a selected chip: in its violet (the dark-ground value here). */
+nav a[aria-current="page"] { border-bottom-color: var(--violet-dark); }
+
+/* The hero is the turn screen's near-black ground with white text: the mark beside the wordmark, the introduction and the
+   Email button on the left, and a drawing of the real turn screen on a sideways phone on the right, stacking on a phone. */
+.hero { background: var(--ground); color: var(--on-ground); }
+.hero-inner { display: flex; align-items: center; justify-content: space-between; gap: 48px; padding-top: 88px; padding-bottom: 96px; }
+.intro { min-width: 0; max-width: 540px; }
+.title-row { display: flex; align-items: center; gap: 20px; margin-bottom: 20px; }
+.hero-mark { width: 88px; height: 88px; flex: 0 0 auto; display: block; }
+.hero h1 { color: var(--on-ground); font-size: 60px; line-height: 1; }
+.tagline { font-family: var(--round); font-weight: 800; font-size: 22px; line-height: 1.35; color: var(--on-ground); margin-bottom: 18px; }
+.intro p { color: var(--soft); }
+.intro .tagline { color: var(--on-ground); }
+/* The testing note is a capsule with a warn-yellow dot, the app's color for "not finished". The words carry the meaning;
+   the dot only echoes it. */
+.status { display: inline-flex; align-items: center; gap: 10px; margin-top: 4px; padding: 8px 16px; border-radius: 999px; background: var(--raised); border: 1px solid var(--edge); font-size: 15px; line-height: 1.4; }
+.intro .status { color: var(--on-ground); }
+.status::before { content: ""; flex: 0 0 auto; width: 10px; height: 10px; border-radius: 50%; background: var(--warn-dark); }
+.cta { margin: 28px 0 0; }
+
+/* The button is the app's Play button: a violet capsule with bold rounded white text, deeper violet on hover. */
+.button { display: inline-flex; align-items: center; gap: 10px; min-height: 52px; padding: 12px 26px; border-radius: 999px; background: var(--violet); color: #fff; font-family: var(--round); font-weight: 800; font-size: 17px; line-height: 1.2; text-decoration: none; transition: background-color .15s ease; }
+.button:hover { background: var(--violet-deep); color: #fff; }
+.button svg { width: 20px; height: 20px; flex: 0 0 auto; }
+
+/* The turn screen on a sideways phone, reused from the drawing of Flip Wits on hearthandwit.com (its .fw rules), so both
+   sites show the same picture. It is drawn at a fixed 300px square and scaled with --s, and the wrapper takes the scaled
+   size so the layout leaves the right room. The disc behind it is a slightly raised dark with two violet turning arcs. */
+.fw-art { --s: 1.5; flex: 0 0 auto; width: calc(300px * var(--s)); height: calc(300px * var(--s)); }
+.fw-stage { position: relative; width: 300px; height: 300px; transform: scale(var(--s)); transform-origin: 0 0; }
+.fw-disc { position: absolute; left: 10px; top: 10px; width: 280px; height: 280px; display: block; }
+/* The phone body is the company site's neutral dark grey, with a thin lighter edge so it still shows on the near-black.
+   Its camera is on the left, so the top of the phone points left: the volume keys (the left edge when upright) are on
+   the bottom edge and the side key on the top edge. The second volume key is the first one's shadow, 36px along. */
+.phone-side { position: absolute; left: 5px; top: 80px; width: 290px; height: 140px; padding: 8px; background: #2E3036; border-radius: 34px; box-shadow: 0 16px 30px rgba(0, 0, 0, .5), inset 0 0 0 1px #5A5D66; }
+.phone-side::before, .phone-side::after { content: ""; position: absolute; background: #2E3036; }
+.phone-side::before { left: 112px; bottom: -3px; width: 28px; height: 3px; border-radius: 0 0 2px 2px; box-shadow: 36px 0 0 #2E3036; }
+.phone-side::after { left: 132px; top: -3px; width: 48px; height: 3px; border-radius: 2px 2px 0 0; }
+/* The glass clips the drawing like a real screen. Small text is enlarged past true scale so it still reads.
+   Numbers are tabular and the big one is set heavy (900), as in the app; the camera island is the ::before at the left. */
+.fw { position: relative; width: 100%; height: 100%; overflow: hidden; display: flex; flex-direction: column; gap: 3px; padding: 8px 14px 7px 32px; border-radius: 26px; background: var(--ground); color: #fff; font-family: var(--round); font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1.1; white-space: nowrap; }
+.fw::before { content: ""; position: absolute; left: 8px; top: 50%; width: 15px; height: 44px; margin-top: -22px; border-radius: 8px; background: #000; box-shadow: 0 0 0 1px #1C1C24; }
+.fw svg { display: block; }
+.fw-top { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 6px; font-size: 7.5px; }
+.fw-team { display: flex; align-items: center; gap: 3px; }
+.fw-team::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #EB4F72; }
+.fw-deck { padding: 1px 5px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, .4); font-size: 7px; }
+.fw-score { justify-self: end; display: flex; align-items: center; gap: 6px; font-size: 11px; }
+.fw-got, .fw-pass { display: flex; align-items: center; gap: 2px; }
+.fw-got { color: var(--got-dark); }
+.fw-pass { color: var(--pass-dark); }
+.fw-score svg { width: 9px; height: 9px; }
+/* The timer bar is a capsule, as in the app: a faint track with the time left in white. */
+.fw-timer { display: flex; align-items: center; gap: 6px; font-size: 8px; line-height: 1; }
+.fw-track { flex: 1; height: 3px; border-radius: 999px; background: rgba(255, 255, 255, .4); overflow: hidden; }
+.fw-track span { display: block; width: 62%; height: 100%; border-radius: 999px; background: #fff; }
+.fw-number { flex: 1; display: flex; align-items: center; justify-content: center; font-size: 66px; font-weight: 900; line-height: .82; letter-spacing: -.02em; }
+.fw-foot { display: flex; align-items: center; justify-content: space-between; gap: 6px; font-size: 7px; }
+.fw-last { display: flex; align-items: center; gap: 3px; padding: 2px 5px; border-radius: 5px; background: rgba(255, 255, 255, .12); }
+.fw-last svg { width: 7px; height: 7px; }
+/* The four operation chips: minus and times are on (white), plus and divide are off, outlined and struck through. */
+.fw-ops { display: flex; gap: 3px; font-size: 8px; line-height: 1; }
+.fw-ops span { position: relative; width: 14px; height: 11px; display: flex; align-items: center; justify-content: center; border-radius: 3px; background: #fff; color: var(--ground); }
+.fw-ops .off { background: none; border: 1px solid rgba(255, 255, 255, .4); color: rgba(255, 255, 255, .5); }
+.fw-ops .off::after { content: ""; position: absolute; left: 50%; top: 50%; width: 1.15em; height: 1px; background: currentColor; transform: translate(-50%, -50%) rotate(-50deg); }
+.fw-end { color: rgba(255, 255, 255, .6); }
+
+/* How to play: three white cards on the grouped grey, like rows in the app's menus, with the app's 24px card radius. */
+.steps { padding: 72px 0 88px; }
+.steps h2 { font-size: 34px; margin-bottom: 8px; }
+.sub { color: var(--muted); font-size: 17px; margin-bottom: 32px; }
+.cards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.card { background: var(--surface); border: 1px solid var(--rule); border-radius: 24px; padding: 16px 16px 28px; display: flex; flex-direction: column; gap: 12px; }
+/* Each card opens with a small flash screen as the app shows it: the near-black ground with, in turn, the number your team
+   sees, the green check with "Got it" and the orange pass arrow with "Pass", in the app's dark-ground colors. The h3 below
+   names the step in words, so the tile is a picture only and is hidden from screen readers. */
+.tile { height: 124px; border-radius: 16px; background: var(--ground); color: var(--on-ground); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; font-family: var(--round); font-weight: 800; font-size: 28px; line-height: 1; margin-bottom: 8px; }
+.tile-row { display: flex; align-items: center; gap: 10px; }
+.tile svg { width: 34px; height: 34px; display: block; }
+.tile-got { color: var(--got-dark); }
+.tile-pass { color: var(--pass-dark); }
+.tile-number { font-size: 56px; font-weight: 900; letter-spacing: -.02em; line-height: .9; font-variant-numeric: tabular-nums; }
+.tile-track { width: 120px; height: 6px; border-radius: 999px; background: rgba(255, 255, 255, .4); overflow: hidden; }
+.tile-track span { display: block; width: 62%; height: 100%; border-radius: 999px; background: #fff; }
+/* The step titles carry a direction glyph in the light-ground values: violet for the phone, Got it green for up, Pass orange
+   for down. As graphics beside words they need 3:1 on white, which all three clear. */
+.card h3 { display: flex; align-items: center; gap: 10px; font-size: 21px; padding: 0 12px; }
+.card h3 svg { width: 24px; height: 24px; flex: 0 0 auto; }
+.ic-hold { color: var(--violet); }
+.ic-got { color: var(--got); }
+.ic-pass { color: var(--pass); }
+.card p { margin: 0; padding: 0 12px; font-size: 16px; line-height: 1.65; color: var(--body); }
+
+/* The support and privacy pages: the text sits on one white surface on the grouped grey, held to a reading width,
+   with rounded headings and the system face for the running text. */
+.page { max-width: 760px; margin: 56px auto 80px; padding: 48px 56px 40px; background: var(--surface); border: 1px solid var(--rule); border-radius: 24px; }
+.page h1 { font-size: 42px; margin-bottom: 12px; }
+.page h2 { font-size: 24px; margin: 36px 0 8px; }
+.page h3 { font-size: 19px; font-weight: 700; margin: 24px 0 4px; }
 .page p { color: var(--body); }
+.page strong { color: var(--label); }
 .date { color: var(--muted); font-size: 15px; margin-bottom: 24px; }
 .lede { color: var(--muted); margin-bottom: 8px; }
-.status { color: var(--muted); font-size: 15px; }
-nav a[aria-current="page"] { color: var(--accent); border-bottom-color: var(--accent); }
-@media (max-width: 760px) { .page { padding: 48px 0 56px; } }
+.page > p:last-child { margin-bottom: 0; }
+/* Links inside the running text get 12px of padding above and below. On an inline link that padding does not move the lines,
+   but it does grow the tap target to 44px tall, so a link in a sentence is as easy to tap on a phone as one in the top bar. */
+.page a { padding: 12px 0; }
+.page a:focus-visible { outline-offset: 0; }
+
+/* The footer closes the page on the game ground again, with the company link and the email address, each 44px tall. */
+footer { background: var(--ground); color: var(--soft); padding: 20px 40px; }
+footer .inner { max-width: 1040px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0 24px; font-size: 15px; }
+footer a { display: inline-flex; align-items: center; min-height: 44px; color: var(--soft); }
+footer a:hover { color: var(--on-ground); }
+
+/* A narrower desktop: the drawing is drawn smaller so the introduction keeps a comfortable width beside it. */
+@media (max-width: 1080px) {
+  .fw-art { --s: 1.2; }
+}
+
+/* A tablet or phone: the hero stacks, with the drawing under the button, the cards go one per row, and the page
+   surface loses most of its padding so the text keeps its width. The top bar stops sticking, as it wraps to two
+   rows here and would take too much of a small screen. */
+@media (max-width: 860px) {
+  .top { position: static; padding: 4px 16px; }
+  footer { padding: 12px 16px; }
+  .wrap { padding: 0 16px; }
+  .hero-inner { flex-direction: column; align-items: flex-start; gap: 40px; padding-top: 48px; padding-bottom: 56px; }
+  .fw-art { --s: 1; align-self: center; }
+  .hero h1 { font-size: 46px; }
+  .hero-mark { width: 68px; height: 68px; }
+  .title-row { gap: 16px; }
+  .tagline { font-size: 20px; }
+  .steps { padding: 48px 0 56px; }
+  .steps h2 { font-size: 28px; }
+  .cards { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .page { margin: 24px 16px 48px; padding: 32px 20px 24px; }
+  .page h1 { font-size: 34px; }
+  .page h2 { font-size: 22px; }
+}
+
+/* The narrowest phones (320px): the drawing is drawn a little smaller, as on hearthandwit.com, so it fits the column. */
+@media (max-width: 359px) {
+  .fw-art { --s: .9; }
+  .hero h1 { font-size: 40px; }
+  nav { gap: 0 20px; }
+}
+
+/* Nothing on the site moves on its own; this turns off the smooth scroll and the button's color fade for anyone who
+   has asked their system for less motion. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .button { transition: none; }
+}
